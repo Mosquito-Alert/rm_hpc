@@ -1,0 +1,9 @@
+venv/
+.snakemake/
+
+data/
+!data/.gitkeep
+!data/gpw/.gitkeep
+
+outputs/
+!outputs/.gitkeep

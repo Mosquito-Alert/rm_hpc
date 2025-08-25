@@ -1,0 +1,14 @@
+__use_yte__: true
+executor: slurm
+slurm-no-account: true
+slurm-logdir: "/home/$USER/.snakemake/slurm_logs"
+default-resources:
+  # slurm_account: default   # TODO: --slurm-no-account
+  slurm_partition: ceab
+  # mem_mb: attempt * 1500
+  runtime: attempt * 10
+  tmpdir: /lscratch/tmp
+  # slurm_extra: "--mail-type=BEGIN,END,FAIL --mail-user=usuario@correo"
+jobs: 50
+latency-wait: 20
+retries: 1

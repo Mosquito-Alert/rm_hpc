@@ -1,0 +1,13 @@
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - cfgrib=0.9.15.0
+  - dask=2025.7.0
+  - ecmwf-opendata=0.3.22
+  - h3-py=4.3.0
+  - h3ronpy=0.22.0
+  - netCDF4=1.7.2
+  - rasterio=1.4.3
+  - xarray=2025.7.1
+  - xdggs=0.2.1

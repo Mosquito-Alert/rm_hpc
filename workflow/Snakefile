@@ -1,0 +1,32 @@
+wildcard_constraints:
+    year=r"\d+",
+    month=r"(0[1-9]|1[0-2])",
+    day=r"(0[1-9]|[12]\d|3[01])"
+
+configfile: "config/config.yaml"
+
+include: "rules/generate_features.smk"
+
+rule compute_rm0:
+    input:
+        "outputs/features/{year}-{month}-{day}.nc"
+    output:
+        "outputs/features/{species}/{year}-{month}-{day}.nc"
+    conda:
+        "../envs/global.yaml"
+    params:
+        species=lambda wildcards: f"{wildcards.species}",
+    resources:
+        runtime="1h"
+    script:
+        "../scripts/rm0.py"
+
+rule split_rm0_to_csv:
+    input:
+        "outputs/features/{species}/{year}-{month}-{day}.nc"
+    output:
+        directory("outputs/features/{species}/{year}-{month}-{day}")
+    conda:
+        "../envs/global.yaml"
+    script:
+        "../scripts/split_nc_to_csv.py"

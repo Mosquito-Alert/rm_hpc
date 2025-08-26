@@ -1,4 +1,12 @@
+import argparse
 import xarray as xr
+
+try:
+    input_file_default = snakemake.input[0]
+    output_file_default = snakemake.output[0]
+except NameError:
+    input_file_default = None
+    output_file_default = None
 
 def main(input_file: str, output_file: str):
     ds = xr.open_dataset(input_file, decode_timedelta=False)
@@ -31,3 +39,12 @@ def main(input_file: str, output_file: str):
     ds_agg = ds_agg.drop_vars('step')
 
     ds_agg.to_netcdf(output_file)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input_file', type=str, required=(input_file_default is None), default=input_file_default, help='Input NetCDF file path')
+    parser.add_argument('--output_file', type=str, required=(output_file_default is None), default=output_file_default, help='Output NetCDF file path')
+
+    args = parser.parse_args()
+
+    main(args.input_file, args.output_file)

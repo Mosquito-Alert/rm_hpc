@@ -19,7 +19,7 @@ rule compute_rm0:
     resources:
         runtime="1h"
     script:
-        "../scripts/rm0.py"
+        "./scripts/rm0.py"
 
 rule split_rm0_to_csv:
     input:
@@ -29,4 +29,4 @@ rule split_rm0_to_csv:
     conda:
         "./envs/global.yaml"
     script:
-        "../scripts/split_nc_to_csv.py"
+        "./scripts/split_nc_to_csv.py"

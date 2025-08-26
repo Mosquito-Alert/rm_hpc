@@ -10,4 +10,4 @@ rule merge_features:
     conda:
         "../envs/global.yaml"
     script:
-        "../scripts/merge_features.py"
+        "../scripts/preprocess/merge_features.py"

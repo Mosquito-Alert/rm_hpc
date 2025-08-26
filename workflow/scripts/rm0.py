@@ -69,7 +69,7 @@ def truncated_quad_func(a: float, b: float, c: float, temp: float) -> float:
 def hatching_func(rainfall: float, human_density: float) -> float:
     # See: https://doi.org/10.1098/rsif.2018.0761
     # Constants
-    erat = 0.5
+    erat = 0.2
     e0 = 1.5
     evar = 0.05
     eopt = 8

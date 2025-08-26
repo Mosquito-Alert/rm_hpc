@@ -10,5 +10,6 @@ dependencies:
   - h3ronpy=0.22.0
   - netCDF4=1.7.2
   - rasterio=1.4.3
+  - scipy=1.16.1
   - xarray=2025.7.1
   - xdggs=0.2.1

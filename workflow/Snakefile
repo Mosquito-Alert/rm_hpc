@@ -11,7 +11,7 @@ rule compute_rm0:
     input:
         "outputs/features/{year}-{month}-{day}.nc"
     output:
-        "outputs/features/{species}/{year}-{month}-{day}.nc"
+        temp("outputs/features/{species}/{year}-{month}-{day}.nc")
     conda:
         "./envs/global.yaml"
     params:

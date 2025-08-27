@@ -106,7 +106,7 @@ def rm0(species, temp: float, human_density: float, rainfall: float) -> float:
     return np.cbrt(f * a * delta_adult * prob_egg2larvae * ((h * dE)/(h * dE + delta_eggs)))
 
 def main(input_file, output_file, species):
-    ds = xr.open_dataset(input_file)
+    ds = xr.open_dataset(input_file, chunks={'date': 1})
 
     rm = xr.apply_ufunc(
         rm0,
@@ -121,8 +121,7 @@ def main(input_file, output_file, species):
     )
 
     ds_rm = xr.Dataset({"rm": rm})
-    ds_rm = ds_rm.rename({'h3_cell': 'cell_ids'})
-    ds_rm.cell_ids.attrs = ds.h3_cell.attrs
+    ds_rm.cell_ids.attrs = ds.cell_ids.attrs
     ds_rm.rm.attrs['title'] = 'Mosquito basic reproductive number'
     ds_rm.to_netcdf(output_file)
 

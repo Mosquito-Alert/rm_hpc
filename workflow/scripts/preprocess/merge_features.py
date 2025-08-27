@@ -12,16 +12,18 @@ except NameError:
     output_file_default = None
 
 def main(ecmwf_file, gpw_file, output_file):
-    ds_ecmwf = xr.open_dataset(ecmwf_file).set_index(h3_cell="cell_ids")
+    ds_ecmwf = xr.open_dataset(
+        ecmwf_file,
+        chunks={'cell_ids': 1024}
+    ).drop_indexes('cell_ids', errors='ignore').set_xindex('cell_ids')
     ds_gpw = xr.Dataset.from_dataframe(
         pd.read_csv(gpw_file, index_col='cell')
-    ).rename({
-        'cell': 'h3_cell',
-    })
-
-    ds_gpw = ds_gpw.assign_coords(
-        h3_cell=ds_gpw.h3_cell.astype("uint64")
     )
+    ds_gpw = ds_gpw.assign_coords(
+        cell=ds_gpw.cell.astype("uint64")
+    ).rename({
+        'cell': 'cell_ids',
+    }).rename_dims({"cell_ids": "h3_cell"})
 
     ds_combined = xr.merge([ds_ecmwf, ds_gpw], join='inner')
     ds_combined.to_netcdf(output_file)

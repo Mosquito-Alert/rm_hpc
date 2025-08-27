@@ -1,5 +1,6 @@
 import argparse
 import h3
+from pathlib import Path
 import xarray as xr
 
 try:
@@ -27,7 +28,9 @@ def main(input_file, output_dir):
 
     for date in ds.date.dt.date.values:
         df = ds.sel(date=ds.date.dt.date == date).drop_vars('date').to_dataframe()
-        df.to_csv(f"{output_dir}/{date}.csv")
+        output_path = Path(f"{output_dir}/{date}.csv")
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        df.to_csv(output_path)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

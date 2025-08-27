@@ -114,8 +114,10 @@ def main(input_file, output_file, species):
         ds.t2m_mean,
         ds.population_density,
         ds.tp * 1000,  # in mm instead of m.
-        input_core_dims=[],
-        vectorize=True
+        input_core_dims=[[],[],[],[]],
+        dask='parallelized',
+        vectorize=True,
+        output_dtypes=[float]
     )
 
     ds_rm = xr.Dataset({"rm": rm})

@@ -10,7 +10,8 @@ except NameError:
     output_dir_default = None
 
 def main(input_file, output_dir):
-    ds = xr.open_dataset(input_file).assign_coords(
+    ds = xr.open_dataset(input_file)
+    ds = ds.assign_coords(
         h3_index=xr.apply_ufunc(
             h3.int_to_str,
             ds['cell_ids'],

@@ -9,6 +9,10 @@ The model needs data from the following data sources:
 - Realtime [ECMWF - HRES](https://confluence.ecmwf.int/display/DAC/ECMWF+open+data%3A+real-time+forecasts+from+IFS+and+AIFS)
 - [GPWv4 - Population Density](https://doi.org/10.7927/H49C6VHW)
 
+In the case of future forecast, please consider (not yet tested):
+- [CMIP6 climate projections](https://cds.climate.copernicus.eu/datasets/projections-cmip6)
+- [GHS-POP](https://human-settlement.emergency.copernicus.eu/ghs_pop2023.php) for future estimates of human population density.
+
 ## Data preparation
 
 ### Download GPWv4 - Population Density

@@ -20,9 +20,7 @@ def main(input_file, output_dir):
             dask='parallelized',
             output_dtypes=[str]
         )
-    ).swap_dims(
-        {'cell_ids': 'h3_index'}
-    ).drop_vars('cell_ids').rename(
+    ).set_xindex('h3_index').drop_vars('cell_ids').rename(
         {'rm': 'value'}
     )
 

@@ -20,12 +20,12 @@ def main(input_file, output_dir):
             dask='parallelized',
             output_dtypes=[str]
         )
-    ).set_xindex('h3_index').drop_vars('cell_ids').rename(
+    ).drop_vars('cell_ids').swap_dims({'h3_cell': 'h3_index'}).rename(
         {'rm': 'value'}
     )
 
     for date in ds.date.dt.date.values:
-        df = ds.sel(date=ds.date.dt.date == date).drop_vars('date').to_dataframe()
+        df = ds.sel(date=ds.date.dt.date == date).squeeze('date', drop=True).to_dataframe()
         output_path = Path(f"{output_dir}/{date}.csv")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         df.to_csv(output_path)
